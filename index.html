@@ -239,4 +239,97 @@ h1 {
             <button class="copy-btn" onclick="copyText('applePwd', this)">复制</button>
         </div>
 
-        <div class=
+        <div class="account-tip">⚠️ 仅用于 App Store，请勿登录 iCloud</div>
+    </div>
+
+    <!-- 标题 -->
+    <div class="header">
+        <div class="icon-container">🍎</div>
+        <h1>Apple ID 登录指南</h1>
+    </div>
+
+    <!-- 步骤 -->
+    <div class="step-list">
+
+        <div class="step-item">
+            在您的 <span class="highlight">iPhone 或 iPad</span> 上打开「<span class="highlight">App Store</span>」，点击右上角头像，
+            滑动到底部选择「<span class="highlight">退出登录</span>」。
+        </div>
+
+        <div class="step-item">
+            输入平台提供的 Apple ID 和密码。如遇安全提示，点击「<span class="highlight">其他选项</span>」并选择「<span class="highlight">不升级</span>」。
+        </div>
+
+        <div class="step-item">登录界面如下图所示：</div>
+
+        <div class="img-wrapper">
+            <img src="https://i.ibb.co/gx0ChWC/IMG-20250711-175645.jpg"
+                 class="main-image"
+                 onclick="openImg(this.src)"
+                 alt="App Store 登录示意图">
+            <div class="image-tip">App Store 登录示意图 · 点击图片可放大查看</div>
+        </div>
+
+        <div class="step-item">
+            登录成功后，搜索需要的应用（如 <span class="highlight">Shadowrocket</span>），若显示付费提示请忽略。
+        </div>
+
+        <div class="step-item">
+            应用安装完成后，进入软件导入你的节点或订阅链接即可。
+        </div>
+
+    </div>
+
+    <div class="success-box">
+        配置完成后，就可以开始畅享更自由的网络环境啦 🎉
+    </div>
+
+</div>
+
+<!-- 图片放大 -->
+<div id="overlay" onclick="closeImg()">
+    <img id="overlayImg">
+</div>
+
+<script>
+function copyText(id, btn) {
+    const text = document.getElementById(id).innerText;
+
+    const input = document.createElement('input');
+    input.value = text;
+    document.body.appendChild(input);
+
+    input.select();
+    input.setSelectionRange(0, 99999); // 兼容手机
+
+    const success = document.execCommand('copy');
+    document.body.removeChild(input);
+
+    if (success) {
+        const old = btn.innerText;
+        btn.innerText = '已复制';
+        btn.style.background = '#34C759';
+        setTimeout(() => {
+            btn.innerText = old;
+            btn.style.background = '';
+        }, 1400);
+    } else {
+        alert('复制失败，请手动复制');
+    }
+}
+    
+
+function openImg(src) {
+    document.getElementById('overlayImg').src = src;
+    document.getElementById('overlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImg() {
+    document.getElementById('overlay').classList.remove('show');
+    document.body.style.overflow = '';
+}
+</script>
+
+</body>
+</html>
