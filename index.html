@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple ID 登录指南</title>
+
+<style>
+:root {
+    --primary-color: #007AFF;
+    --accent-color: #FF3B30;
+    --success-color: #34C759;
+    --bg-color: #F2F2F7;
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 59, 48, 0.05) 0px, transparent 50%);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    color: #1c1c1e;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    max-width: 460px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 32px 26px 40px;
+    box-shadow: var(--card-shadow);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ===== 账号卡片 ===== */
+.account-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 22px;
+    padding: 18px 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.account-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.account-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.account-label {
+    font-size: 13px;
+    color: #8e8e93;
+    width: 44px;
+}
+
+.account-value {
+    flex: 1;
+    font-size: 14px;
+    background: #f2f2f7;
+    padding: 8px 10px;
+    border-radius: 10px;
+    word-break: break-all;
+}
+
+.account-value.blur {
+    filter: blur(2px);
+    user-select: none;
+}
+
+.copy-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+}
+
+.copy-btn:active { transform: scale(0.95); }
+
+.account-tip {
+    font-size: 12px;
+    color: var(--accent-color);
+    margin-top: 6px;
+    text-align: center; 
+}
+
+/* ===== 头部 ===== */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.icon-container {
+    width: 64px;
+    height: 64px;
+    background: #fff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* ===== 步骤 ===== */
+.step-list { counter-reset: step; }
+
+.step-item {
+    position: relative;
+    padding-left: 48px;
+    margin-bottom: 26px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #3a3a3c;
+}
+
+.step-item::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    color: var(--primary-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,122,255,.15);
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: 600;
+    background: rgba(255,59,48,.08);
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+/* ===== 图片 ===== */
+.img-wrapper { margin: 20px 0; }
+
+.main-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    cursor: zoom-in;
+}
+
+.image-tip {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8e8e93;
+    text-align: center;
+}
+
+/* ===== 成功提示 ===== */
+.success-box {
+    margin-top: 36px;
+    padding: 20px;
+    background: linear-gradient(135deg, #34C759, #248A3D);
+    border-radius: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 10px 20px rgba(52,199,89,.2);
+}
+
+/* ===== 图片放大 ===== */
+#overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#overlay img {
+    max-width: 95%;
+    max-height: 90%;
+    border-radius: 14px;
+}
+
+#overlay.show { display: flex; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 账号信息 -->
+    <div class="account-card">
+        <div class="account-title">🍎 App Store 登录信息</div>
+
+        <div class="account-row">
+            <div class="account-label">账号</div>
+            <div class="account-value" id="appleId">example@icloud.com</div>
+            <button class="copy-btn" onclick="copyText('appleId', this)">复制</button>
+        </div>
+
+        <div class="account-row">
+            <div class="account-label">密码</div>
+            <div class="account-value" id="applePwd">Abc123456</div>
+            <button class="copy-btn" onclick="copyText('applePwd', this)">复制</button>
+        </div>
+
+        <div class=
